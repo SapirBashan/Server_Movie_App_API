@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson.IO;
 using Movie_Fetch_API.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,6 +16,7 @@ namespace Movie_Fetch_API.Controllers
         {
             this.movieService = movieService;
         }
+
         // GET: api/<MovieValueController>
         [HttpGet]
         public ActionResult<List<Movie>> Get()
@@ -23,62 +25,72 @@ namespace Movie_Fetch_API.Controllers
         }
 
         // GET api/<MovieValueController>/5
-        [HttpGet("{key}")]
-        public ActionResult<Movie> Get(string key)
+        [HttpGet("{title}")]
+        public ActionResult<Movie> Get(string title)
         {
-            var movie = movieService.Get(key);
+            var movie = movieService.GetByTitle(title);
 
             if( movie == null)
             {
-                return NotFound($"movie with key = {key} not found");
+                return NotFound($"{title} movie not found");
 
             }
             return movie;
         }
 
-        // POST api/<MovieValueController>
         [HttpPost]
-        public ActionResult<Movie> Post([FromBody] Movie movie)
+        public async Task<ActionResult<Movie>> Post([FromBody] Movie movie)
         {
+            // No need for individual string parameters anymore
+
+            if (movie == null)
+            {
+                return BadRequest("Invalid movie data provided");
+            }
+
             movieService.Create(movie);
 
             return CreatedAtAction(nameof(Get), new { key = movie.Key }, movie);
         }
 
-        // PUT api/<MovieValueController>/5
-        [HttpPut("{key}")]
-        public ActionResult Put(string key, [FromBody] Movie movie)
-        {
-            var existingMovie = movieService.Get(key);
 
-            if( existingMovie == null)
-            {
-                return NotFound($"movie with key = {key} not found");
-            }
 
-            movieService.Update(key, movie);
 
-            //return NoContent
-            return Content("put function succsesful");
 
-        }
+        //// PUT api/<MovieValueController>/5
+        //[HttpPut("{key}")]
+        //public ActionResult Update(string key, [FromBody] Movie movie)
+        //{
+        //    var existingMovie = movieService.GetByKey(key);
+
+        //    if( existingMovie == null)
+        //    {
+        //        return NotFound($"movie with key = {key} not found");
+        //    }
+
+        //    movieService.Update(key, movie);
+
+        //    //return NoContent
+        //    return Content("update function succsesful");
+
+        //}
 
         // DELETE api/<MovieValueController>/5
-        [HttpDelete("{key}")]
-        public ActionResult Delete(string key)
+        [HttpDelete("{title}")]
+        public ActionResult Delete(string title)
         {
 
-            var movie = movieService.Get(key);
+            var movie = movieService.GetByTitle(title);
 
             if (movie == null)
             {
-                return NotFound($"movie with key = {key} not found");
+                return NotFound($"movie with title = {title} not found");
             }
 
             movieService.Delete(movie.Key);
 
             //return NoContent
-            return Ok($"movie with key = {key} removed");
+            return Ok($"movie with title = {title} removed");
         }
     }
 }

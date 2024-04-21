@@ -11,8 +11,8 @@ namespace Movie_Fetch_API.Services
         {
             var dataBase = mongoClient.GetDatabase(settings.DataBaseName);
             _movies = dataBase.GetCollection<Movie>(settings.MovieCollectName);
-
         }
+
         public Movie Create(Movie movie)
         {
             _movies.InsertOne(movie);
@@ -25,7 +25,12 @@ namespace Movie_Fetch_API.Services
 
         }
 
-        public Movie Get(string key)
+        public Movie GetByTitle(string title)
+        {
+            return _movies.Find(movie => movie.Title == title).FirstOrDefault();
+        }
+
+        public Movie GetByKey(string key)
         {
             return _movies.Find(movie => movie.Key == key).FirstOrDefault();
         }
@@ -35,9 +40,9 @@ namespace Movie_Fetch_API.Services
             return _movies.Find(movie => true).ToList();
         }
 
-        public void Update(string key, Movie movie)
-        {
-            _movies.ReplaceOne(movie => movie.Key == key, movie); 
-        }
+        //public void Update(string key, Movie movie)
+        //{
+        //    _movies.ReplaceOne(movie => movie.Key == key, movie); 
+        //}
     }
 }
