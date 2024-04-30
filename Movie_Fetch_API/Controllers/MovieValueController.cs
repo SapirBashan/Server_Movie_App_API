@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson.IO;
 using Movie_Fetch_API.Services;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,41 +22,59 @@ namespace Movie_Fetch_API.Controllers
         [HttpGet]
         public ActionResult<List<Movie>> Get()
         {
-            return movieService.GetAll();
+            try
+            {
+                return movieService.GetAll();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(500, "An error occurred while retrieving movies.");
+            }
         }
 
         // GET api/<MovieValueController>/5
         [HttpGet("{title}")]
         public ActionResult<Movie> Get(string title)
         {
-            var movie = movieService.GetByTitle(title);
-
-            if( movie == null)
+            try
             {
-                return NotFound($"{title} movie not found");
+                var movie = movieService.GetByTitle(title);
 
+                if (movie == null)
+                {
+                    return NotFound($"{title} movie not found");
+                }
+
+                return movie;
             }
-            return movie;
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(500, "An error occurred while retrieving the movie.");
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<Movie>> Post([FromBody] Movie movie)
         {
-            // No need for individual string parameters anymore
-
-            if (movie == null)
+            try
             {
-                return BadRequest("Invalid movie data provided");
+                if (movie == null)
+                {
+                    return BadRequest("Invalid movie data provided");
+                }
+
+                movieService.Create(movie);
+
+                return CreatedAtAction(nameof(Get), new { key = movie.Key }, movie);
             }
-
-            movieService.Create(movie);
-
-            return CreatedAtAction(nameof(Get), new { key = movie.Key }, movie);
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(500, "An error occurred while creating the movie.");
+            }
         }
-
-
-
-
 
         //// PUT api/<MovieValueController>/5
         //[HttpPut("{key}")]
@@ -76,21 +95,29 @@ namespace Movie_Fetch_API.Controllers
         //}
 
         // DELETE api/<MovieValueController>/5
+
         [HttpDelete("{title}")]
         public ActionResult Delete(string title)
         {
-
-            var movie = movieService.GetByTitle(title);
-
-            if (movie == null)
+            try
             {
-                return NotFound($"movie with title = {title} not found");
+                var movie = movieService.GetByTitle(title);
+
+                if (movie == null)
+                {
+                    return NotFound($"Movie with title = {title} not found");
+                }
+
+                movieService.Delete(movie.Key);
+
+                return Ok($"Movie with title = {title} removed");
             }
-
-            movieService.Delete(movie.Key);
-
-            //return NoContent
-            return Ok($"movie with title = {title} removed");
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(500, "An error occurred while deleting the movie.");
+            }
         }
     }
 }
+
