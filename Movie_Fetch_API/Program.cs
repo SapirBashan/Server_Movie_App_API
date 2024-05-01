@@ -6,8 +6,16 @@ using Movie_Fetch_API.Controllers;
 using Movie_Fetch_API.Services;
 using System;
 using Microsoft.Extensions.Options;
+using OpenAI_ChatGPT;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//************************* For Chat GPT *************************************************************
+builder.Services.AddHttpClient(); // Adds the IHttpClientFactory and related services to service coll
+
+builder.Services.AddScoped<IChatCompletionService, ChatCompletionService>();
+//************************* For Chat GPT *************************************************************
+
 
 // Add services to the container.
 builder.Services.Configure<DataSetSettings>(
