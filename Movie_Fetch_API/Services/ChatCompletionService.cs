@@ -28,7 +28,8 @@ public class ChatCompletionService : IChatCompletionService
                     Role = "user",
                     Content = "These are a few movies that the user likes " + question + 
                     "can you list 5 movies that the user might like based on the movies listed, start the answer with " +
-                    "You might also like these 5 Movies:- than 5 movies with a varry sfort discription"
+                    "These are the 5 movies you might like based on your personal preferences:- than 5 movies with the acurate title of the movie " +
+                    "whith the year and a varry short discription of the movie"
                 }
             }
         };
