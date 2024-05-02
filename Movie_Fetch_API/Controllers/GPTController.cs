@@ -5,6 +5,8 @@ using OpenAI_API.Completions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
+using System.Text.Json;
 
 namespace ChatGPT_CSharp.Controllers
 {
@@ -12,14 +14,16 @@ namespace ChatGPT_CSharp.Controllers
     public class GPTController : ControllerBase
     {
         private readonly OpenAIAPI openai;
+        private readonly IConfiguration _configuration;
 
-        public GPTController()
+        public GPTController(IConfiguration configuration)
         {
-            // Replace this with your OpenAI API key
-            openai = new OpenAIAPI("sk-proj-wygLxrvIejabwkd3NGX4T3BlbkFJkffTdKdLONDk8z7cKwUw");
+            _configuration = configuration;
+            string openAIKey = _configuration["OpenAIKey"];
+            openai = new OpenAIAPI(openAIKey);
         }
 
-        [HttpGet]
+            [HttpGet]
         [Route("GetMovieSuggestions")]
         public async Task<IActionResult> GetMovieSuggestions(string movies)
         {
