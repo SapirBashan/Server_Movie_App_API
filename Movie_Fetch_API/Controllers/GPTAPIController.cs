@@ -10,7 +10,7 @@ public class ChatCompletionController : ControllerBase
         _chatCompletionService = chatCompletionService;
     }
 
-    [HttpGet("Enter movies you like")]
+    [HttpGet("api/movieRecommendation")]
     public async Task<IActionResult> Get(string question)
     {
         var response = await _chatCompletionService.GetChatCompletionAsync(question);
