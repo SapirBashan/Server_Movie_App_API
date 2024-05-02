@@ -76,23 +76,24 @@ namespace Movie_Fetch_API.Controllers
             }
         }
 
-        //// PUT api/<MovieValueController>/5
-        //[HttpPut("{key}")]
-        //public ActionResult Update(string key, [FromBody] Movie movie)
-        //{
-        //    var existingMovie = movieService.GetByKey(key);
+        // PUT api/<MovieValueController>/5 
+        //update comment
+        [HttpPut]
+        public ActionResult Update(string title, [FromBody] string comment)
+        {
+            var existingMovie = movieService.GetByTitle(title);
 
-        //    if( existingMovie == null)
-        //    {
-        //        return NotFound($"movie with key = {key} not found");
-        //    }
+            if (existingMovie == null)
+            {
+                return NotFound($"movie with key = {title} not found");
+            }
 
-        //    movieService.Update(key, movie);
+            movieService.Update(title, comment);
 
-        //    //return NoContent
-        //    return Content("update function succsesful");
+            //return NoContent
+            return Content("update function succsesful");
 
-        //}
+        }
 
         // DELETE api/<MovieValueController>/5
 

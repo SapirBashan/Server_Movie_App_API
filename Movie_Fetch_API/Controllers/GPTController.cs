@@ -16,7 +16,7 @@ namespace ChatGPT_CSharp.Controllers
         public GPTController()
         {
             // Replace this with your OpenAI API key
-            openai = new OpenAIAPI("sk-proj-E3xJX6o4VfQ27VpNoBK1T3BlbkFJ92z4htYoOGtIn1X6OqF7");
+            openai = new OpenAIAPI("sk-proj-wygLxrvIejabwkd3NGX4T3BlbkFJkffTdKdLONDk8z7cKwUw");
         }
 
         [HttpGet]

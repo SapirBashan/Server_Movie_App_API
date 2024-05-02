@@ -40,9 +40,11 @@ namespace Movie_Fetch_API.Services
             return _movies.Find(movie => true).ToList();
         }
 
-        //public void Update(string key, Movie movie)
-        //{
-        //    _movies.ReplaceOne(movie => movie.Key == key, movie); 
-        //}
+        public void Update(string title, string comment)
+        {
+            Movie myMovie = _movies.Find(movie => movie.Title == title).FirstOrDefault();
+            myMovie.Comment = comment;
+            _movies.ReplaceOne(movie => movie.Title == title, myMovie);
+        }
     }
 }

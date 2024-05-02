@@ -32,5 +32,8 @@ namespace Movie_Fetch_API
 
         [BsonElement("imdbRating")]
         public string? imdbRating { get; set; }
+
+        [BsonElement("comment")]
+        public string? Comment { get; set;}
     }
 }
