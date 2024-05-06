@@ -41,16 +41,16 @@ namespace ChatGPT_CSharp.Controllers
             }
 
             string prompt = "Based on the fact that I like these following movies: " + string.Join(", ", movieList) +
-                            ", suggest only 5 more movies that I might enjoy.";
+                            ", suggest only 5 more movies that you might enjoy. feel free to talk about anything and use ass manny amojis ass you can";
 
             // Customize the completion request as needed
             CompletionRequest completionRequest = new CompletionRequest()
             {
                 Prompt = prompt,
                 Model = OpenAI_API.Models.Model.Davinci, 
-                MaxTokens = 60,
+                MaxTokens = 150,
                 Temperature = 0.8, // Adjust as needed
-                TopP = 1.0 // Adjust as needed
+                TopP = 0.7 // Adjust as needed
             };
                 // Get completions from OpenAI API
                 var completions = await openai.Completions.CreateCompletionAsync(completionRequest);

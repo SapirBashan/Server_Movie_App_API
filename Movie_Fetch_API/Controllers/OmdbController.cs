@@ -8,11 +8,11 @@ namespace Movie_Fetch_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MovieController : ControllerBase
+    public class OmdbController : ControllerBase
     {
         private readonly HttpClient _httpClient;
 
-        public MovieController()
+        public OmdbController()
         {
             _httpClient = new HttpClient();
         }
