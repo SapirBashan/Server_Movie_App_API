@@ -10,6 +10,10 @@ using System.Text.Json;
 
 namespace ChatGPT_CSharp.Controllers
 {
+    // this class is a controller that handles the API requests and responses
+    // in this conrtoller we call an older virsion on the OpenAI API to get movie suggestions based on the user's preferences
+    // (beacuse it is a older version the answer might not be as accurat or even good,
+    // this is just a show case of how to use the OpenAI API with only a controller)
     [ApiController]
     public class GPTController : ControllerBase
     {
@@ -23,7 +27,7 @@ namespace ChatGPT_CSharp.Controllers
             openai = new OpenAIAPI(openAIKey);
         }
 
-            [HttpGet]
+        [HttpGet]
         [Route("GetMovieSuggestions")]
         public async Task<IActionResult> GetMovieSuggestions(string movies)
         {

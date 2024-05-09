@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
+//this class is used to serialize the request to the OpenAI API
+//the request is a JSON object with the following structure
 namespace OpenAI_ChatGPT
 {
     public class ChatCompletionRequest

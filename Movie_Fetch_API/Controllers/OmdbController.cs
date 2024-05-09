@@ -4,6 +4,12 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+//this is the controller that will be used to fetch the movie data from the OMDB API
+//it will take the title of the movie as a parameter and return the movie object
+//it will also fetch additional data such as plot and rating using the IMDb ID
+//the controller will return a 400 status code if the movie was not found
+//the controller will return a 200 status code if the movie was found
+//the controller will return the movie object if the movie was found
 namespace Movie_Fetch_API.Controllers
 {
     [ApiController]
@@ -12,14 +18,17 @@ namespace Movie_Fetch_API.Controllers
     {
         private readonly HttpClient _httpClient;
 
+        //ctor
         public OmdbController()
         {
             _httpClient = new HttpClient();
         }
 
+        //GET method to fetch the movie data from the OMDB API
         [HttpGet("{title}")]
         public async Task<IActionResult> Get(string title)
         {
+            // Fetch movie data using title
             var response = await _httpClient.GetAsync($"http://www.omdbapi.com/?apikey=b23f75aa&t={title}&r=json");
 
             if (response.IsSuccessStatusCode)

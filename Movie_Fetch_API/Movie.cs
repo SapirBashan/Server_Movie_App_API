@@ -3,6 +3,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 namespace Movie_Fetch_API
 {
+    //this class is used to store the data fetched from the API
+    //the data is stored in the form of objects of this class
     public class Movie
     {
         [BsonId]

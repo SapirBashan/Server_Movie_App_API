@@ -1,5 +1,7 @@
 ﻿namespace Movie_Fetch_API.Controllers
 {
+    // this class is used to get the settings from the appsettings.json file
+    // it implements the IDataSetSettings interface
     public class DataSetSettings : IDataSetSettings
     {
         public string MovieCollectName { get; set; }
@@ -16,6 +18,7 @@
 
         public DataSetSettings(string movieCollectName = null, string connectionStrings = null, string dataBaseName = null)
         {
+            // Set values for properties
             MovieCollectName = movieCollectName ?? "DefaultMovieCollectName";
             ConnectionStrings = connectionStrings ?? "DefaultConnectionStrings";
             DataBaseName = dataBaseName ?? "DefaultDataBaseName";

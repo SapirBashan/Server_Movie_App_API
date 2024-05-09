@@ -16,7 +16,7 @@ builder.Services.AddHttpClient(); // Adds the IHttpClientFactory and related ser
 builder.Services.AddScoped<IChatCompletionService, ChatCompletionService>();
 //************************* For Chat GPT *************************************************************
 
-
+//************************* For MongoDB *************************************************************
 // Add services to the container.
 builder.Services.Configure<DataSetSettings>(
     builder.Configuration.GetSection(nameof(DataSetSettings)));
@@ -30,11 +30,14 @@ var movieCollectName = config.GetValue<string>("MovieCollectName");
 var connectionString = config.GetValue<string>("ConnectionStrings");
 var dataBaseName = config.GetValue<string>("DataBaseName");
 
+//this is a way to get the configuration values from appsettings.json file
+//for the MongoDB connection
 Console.WriteLine($"Retrieved configuration:");
 Console.WriteLine($"MovieCollectName: {movieCollectName}");
 Console.WriteLine($"ConnectionString: {connectionString}");
 Console.WriteLine($"DataBaseName: {dataBaseName}");
 
+//if the connection string is null or empty, throw an exception
 if (string.IsNullOrEmpty(connectionString))
 {
     throw new ArgumentNullException(nameof(connectionString), "Connection string is missing or null.");
@@ -42,9 +45,13 @@ if (string.IsNullOrEmpty(connectionString))
 
 builder.Services.AddSingleton<IMongoClient>(
     s => new MongoClient(connectionString));
+//************************* For MongoDB *************************************************************
 
+//************************* For OMDB *************************************************************
 builder.Services.AddScoped<IMovieService, MovieService>();
 
+//this is service is used to get the configuration values from appsettings.json file
+//for the OMDB API
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -58,6 +65,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//app services are used to get the services that are registered in the container
+//and then we can use them in the application
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
