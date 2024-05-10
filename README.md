@@ -3,12 +3,11 @@
 
 This project is a movie fetch API application built using C# .NET Core for the backend and integrated with external APIs such as OMDB API for movie data and OpenAI API for chat completion functionality. It also includes a PyQt frontend for managing movies and getting movie recommendations.
 
-
+##Link to the PyQt frontend
+https://github.com/SapirBashan/PyQt_frontend_Movie_APP
 
 https://github.com/SapirBashan/Server_Movie_App_API/assets/99900812/e7434959-b8f9-4a14-8e46-9d0a25c25ba8
 
-##Link to the PyQt frontend
-https://github.com/SapirBashan/PyQt_frontend_Movie_APP
 
 ## Features
 
