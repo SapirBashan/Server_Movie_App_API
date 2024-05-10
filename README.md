@@ -20,8 +20,6 @@ https://github.com/SapirBashan/PyQt_frontend_Movie_APP
 - **Repository Pattern**: The application utilizes the Repository pattern to abstract data access and improve testability and code organization.
 - **Docker Support**: The Dockerfile provided allows for easy containerization and deployment of the application.
 
-- Certainly! Here's the updated section that includes the use of MongoDB for saving data:
-
 
 ## MongoDB Integration
 
@@ -33,8 +31,6 @@ The application leverages MongoDB as the database for storing movie information.
 - **Data Persistence**: MongoDB ensures data persistence, durability, and high availability, critical for a reliable application.
 
 The backend interacts with MongoDB to perform CRUD operations, enabling seamless storage and management of movie data within the application.
-
-Certainly! Here are three code snippets based on what you've shared:
 
 1. **MongoDB Integration for Movie Storage:**
 ```csharp
