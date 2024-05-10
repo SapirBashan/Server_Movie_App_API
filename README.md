@@ -175,3 +175,7 @@ Contributions to this project are welcome! Please follow these steps:
 3. Commit your changes (`git commit -am 'Add new feature'`).
 4. Push to the branch (`git push origin feature/your-feature`).
 5. Create a new Pull Request.
+
+## Contributors
+- [Sapir Bashan](https://github.com/SapirBashan)
+- [Noam Benisho](https://github.com/noambenisho)
